@@ -16,7 +16,7 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
-function getPreparedGoods(goods, sortField) {
+function prepareGoods(goods, sortField) {
   const preparedGoods = [...goods];
 
   switch (sortField) {
@@ -33,7 +33,7 @@ export const App = () => {
   const [sortField, setSortField] = useState('');
   const [isReversed, setIsReversed] = useState(false);
 
-  let visibleGoods = getPreparedGoods(goodsFromServer, sortField);
+  let visibleGoods = prepareGoods(goodsFromServer, sortField);
 
   if (isReversed) {
     visibleGoods = [...visibleGoods].reverse();
@@ -69,8 +69,7 @@ export const App = () => {
         <button
           type="button"
           className={cn('button is-warning', {
-            'is-light':
-              !isReversed && (sortField !== 'length' || sortField !== 'alph'),
+            'is-light': !isReversed,
           })}
           onClick={() => setIsReversed(prev => !prev)}
         >
@@ -91,9 +90,7 @@ export const App = () => {
           >
             Reset
           </button>
-        ) : (
-          <> </>
-        )}
+        ) : null}
       </div>
 
       <ul>
